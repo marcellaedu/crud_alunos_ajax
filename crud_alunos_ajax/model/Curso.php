@@ -1,7 +1,7 @@
 <?php 
 //Modelo para Curso
 
-class Curso {
+class Curso implements JsonSerializable{
 
     private ?int $id;
     private ?string $nome;
@@ -10,7 +10,13 @@ class Curso {
     //Método toString (chamado ao imprimir um objeto curso)
     public function __toString() {
         return $this->nome . 
-            " (" . $this->turno . ")"; 
+            " (" . $this->turno . ")";
+    }
+
+    public function jsonSerialize(): array {
+        return array("id" => $this->id,
+                     "nome" => $this->nome,
+                     "turno" => $this->turno);
     }
 
     public function getDesc() {

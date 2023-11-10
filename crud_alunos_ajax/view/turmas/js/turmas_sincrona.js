@@ -12,34 +12,24 @@ function buscarDisciplinas() {
 
     }
 
+    var xhttp = new XMLHttpRequest()
+
+    var url = baseUrl + "/api/listar_por_curso.php?idCurso=" + inputCurso.value;
+    xhttp.open("GET", url, false);
+    xhttp.send();
+
+    var json = xhttp.responseText;
+    var disciplinas = JSON.parse(json);
+
     //Criar option vazia
     criarOptionDisciplina("Selecione", "", "-");
 
     var idSelecionado = inputDisciplina.getAttribute("idSelecionado");
 
-    var xhttp = new XMLHttpRequest()
+    disciplinas.forEach(disc => {
+        criarOptionDisciplina(disc.nome, disc.id, idSelecionado);
+    });
 
-    var url = baseUrl + "/api/listar_por_curso.php?idCurso=" + inputCurso.value;
-    xhttp.open("GET", url);
-
-    //função de retorno executada após a resposta do servidor chegar no cliente
-    xhttp.onload = function(){
-        //Resposta da requisição
-        console.log("Resposta recebida do servidor!");
-        var json = xhttp.responseText;
-        var disciplinas = JSON.parse(json);
-
-        disciplinas.forEach(disc => {
-            //Criar as opções para o select
-            criarOptionDisciplina(disc.nome, disc.id, idSelecionado);
-        });
-    
-    }
-
-    xhttp.send();
-    console.log("Requisição enviada ao servidor!");
-    console.log("Mensagem nova!");
-    console.log("Mensagem nova 2!");
 }
 
 function criarOptionDisciplina(desc, valor, valorSelecionado){

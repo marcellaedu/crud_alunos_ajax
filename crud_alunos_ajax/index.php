@@ -14,7 +14,7 @@ include_once(__DIR__ . "/view/include/header.php");
 
 <div class="row mt-3 justify-content-center">
     <div class="col-3">
-        <div class="card text-center">
+        <div class="card text-center" >
             <img class="card-image-top mx-auto mt-3" src="img/card_alunos.png" 
                 style="max-width: 200px; height: auto;" />
             <div class="card-body">
