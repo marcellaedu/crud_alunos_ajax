@@ -1,7 +1,9 @@
 const baseUrl = document.getElementById('hddBaseUrl').value;
 
+const inputAno = document.getElementById('txtAno');
 const inputCurso = document.getElementById('somCurso');
 const inputDisciplina = document.getElementById('somDisciplina');
+
 
 buscarDisciplinas();
 
@@ -38,8 +40,8 @@ function buscarDisciplinas() {
 
     xhttp.send();
     console.log("Requisição enviada ao servidor!");
-    console.log("Mensagem nova!");
-    console.log("Mensagem nova 2!");
+    //console.log("Mensagem nova!");
+    //console.log("Mensagem nova 2!");
 }
 
 function criarOptionDisciplina(desc, valor, valorSelecionado){
@@ -52,4 +54,28 @@ function criarOptionDisciplina(desc, valor, valorSelecionado){
     }
 
     inputDisciplina.appendChild(option);
+}
+
+function inserirTurma(){
+    //Estrutura FormDate para enviar os parametros no corpo da requisição do tipo POST
+    var dados = new FormData();
+    dados.append("ano", inputAno.value);
+    dados.append("idCurso", inputCurso.value);
+    dados.append("idDisc", inputDisciplina.value);
+
+    //Requisição
+    var xhttp = new XMLHttpRequest;
+    var url = baseUrl + "/api/inserir_turma.php";
+    xhttp.open("POST", url);
+    xhttp.onload = function(){
+        var resposta = xhttp.responseText;
+        if(resposta){
+            divErros.innerHTML = resposta;
+            divErros.style.display = "block";
+        }else{
+            //Redirecionar para a listagem
+            window.location = "listar.php";
+        }
+    }
+    xhttp.send(dados);
 }

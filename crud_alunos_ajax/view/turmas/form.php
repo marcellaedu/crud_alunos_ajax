@@ -49,7 +49,8 @@ $cursos = $cursoCont->listar();
             <input type="hidden" name="id" 
                 value="<?php echo ($turma ? $turma->getId() : 0); ?>" />
 
-            <button type="submit" class="btn btn-info">Gravar</button>
+            <!--<button type="submit" class="btn btn-info">Gravar</button>-->
+            <button type="button" class="btn btn-info" onclick="inserirTurma();">Gravar</button>
             <button type="reset" class="btn btn-info">Limpar</button>
         </form>
     </div>
